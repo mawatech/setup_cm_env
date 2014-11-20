@@ -2,17 +2,19 @@
 # 
 # Script to checkout and prepare the cm build
 
-BASE_DIR=$HOME
-CM_DIR=$BASE_DIR/android/system
-
-# initialize the cyanogenmod tree
 cd $CM_DIR
-repo init -u git://github.com/CyanogenMod/android.git -b cm-11.0
-repo sync
 
-# get the prebuilts
-cd $CM_DIR/vendor/cm
-./get-prebuilts
+if [ $CM_ARCHIVE_ENABLED -ne 0 ]; then
+	$CM_ARCHIVE_EXTACT_CMD $CM_ARCHIVE_DIR/$CM_ARCHIVE_NAME $CM_DIR
+else
+	# initialize the cyanogenmod tree
+	repo init -u git://github.com/CyanogenMod/android.git -b $CM_VERSION
+	repo sync -j 8
+fi
+
+	# get the prebuilts
+	cd $CM_DIR/vendor/cm
+	./get-prebuilts
 
 # set the ccache size
 cd $CM_DIR
