@@ -5,7 +5,7 @@ export CM_DIR=$BASE_DIR/android/system
 export OUT_DIR=$SECOND_PARTITION_MOUNTPOINT/out
 export CCACHE_DIR=$HOME/.ccache
 export CM_ARCHIVE_PARTITION=/dev/xvdf1
-export CM_ARCHIVE_DIR=$BASE_DIR/archive
+export CM_ARCHIVE_DIR=$HOME/archive
 export CM_ARCHIVE_NAME=cmrepo.7z
 
 export SECOND_PARTITION=/dev/xvdc

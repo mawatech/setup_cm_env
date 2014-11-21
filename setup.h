@@ -38,6 +38,9 @@ sudo chown -R ubuntu: $CCACHE_DIR
 sudo chown -R ubuntu: $OUT_DIR
 sudo chown -R ubuntu: $CM_ARCHIVE_DIR
 
+sudo touch /etc/apt/sources.list.d/sources.list
+sudo chown ubuntu: /etc/apt/sources.list.d/sources.list
+
 cat << EOF > /etc/apt/sources.list.d/sources.list
 	deb http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse
 	deb-src http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse
@@ -65,6 +68,7 @@ chmod a+x ~/bin/repo
 # export needed env variables
 echo 'export PATH=${PATH}:~/bin' >> ~/.bashrc
 echo "export USE_CCACHE=1" >> ~/.bashrc
+echo "export CCACHE_COMPRESS=1" >> ~/.bashrc
 
 echo call \"source ~/.bashrc\" now
 
