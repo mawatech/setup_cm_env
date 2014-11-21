@@ -2,12 +2,17 @@
 # 
 # Script to setup the environment for a cm build
 
+if [[ -n $SECOND_PARTITION ]]; then
+	sudo mkdir -p $SECOND_PARTITION_MOUNTPOINT
+	sudo mount $SECOND_PARTITION $SECOND_PARTITION_MOUNTPOINT
+	sudo chown -R ubuntu: $SECOND_PARTITION_MOUNTPOINT
+fi
+
 # create the directories
 mkdir -p ~/bin
 sudo mkdir -p $CM_DIR
 sudo mkdir -p $OUT_DIR
 mkdir -p $CCACHE_DIR
-
 
 # if enabled, mount the ramdisks
 if [ $CM_RAMDISK_ENABLED -ne 0 ]; then
@@ -33,7 +38,19 @@ sudo chown -R ubuntu: $CCACHE_DIR
 sudo chown -R ubuntu: $OUT_DIR
 sudo chown -R ubuntu: $CM_ARCHIVE_DIR
 
-sudo cp sources.list /etc/apt/sources.list.d/
+cat << EOF > /etc/apt/sources.list.d/sources.list
+	deb http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse
+	deb-src http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse
+
+	deb http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty-updates main universe restricted multiverse
+	deb-src http://eu-central-1b.clouds.archive.ubuntu.com/ubuntu/ trusty-updates main universe restricted multiverse
+
+	deb http://security.ubuntu.com/ubuntu trusty-security main universe restricted multiverse
+	deb-src http://security.ubuntu.com/ubuntu trusty-security main universe restricted multiverse
+
+	deb http://archive.canonical.com/ubuntu trusty partner
+	deb-src http://archive.canonical.com/ubuntu trusty partner
+EOF
 
 # install needed packages
 sudo add-apt-repository -y ppa:webupd8team/java
@@ -49,6 +66,8 @@ chmod a+x ~/bin/repo
 echo 'export PATH=${PATH}:~/bin' >> ~/.bashrc
 echo "export USE_CCACHE=1" >> ~/.bashrc
 
-echo call "source ~/.bashrc" now
+echo call \"source ~/.bashrc\" now
 
 exit 0
+
+}

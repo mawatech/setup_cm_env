@@ -5,16 +5,17 @@
 cd $CM_DIR
 
 if [ $CM_ARCHIVE_ENABLED -ne 0 ]; then
-	$CM_ARCHIVE_EXTACT_CMD $CM_ARCHIVE_DIR/$CM_ARCHIVE_NAME $CM_DIR
+	7z -y x $CM_ARCHIVE_DIR/$CM_ARCHIVE_NAME -o$CM_DIR
+	repo sync -j 8 -d -f
 else
 	# initialize the cyanogenmod tree
 	repo init -u git://github.com/CyanogenMod/android.git -b $CM_VERSION
 	repo sync -j 8
 fi
 
-	# get the prebuilts
-	cd $CM_DIR/vendor/cm
-	./get-prebuilts
+# get the prebuilts
+cd $CM_DIR/vendor/cm
+./get-prebuilts
 
 # set the ccache size
 cd $CM_DIR
