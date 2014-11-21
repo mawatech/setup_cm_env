@@ -16,6 +16,6 @@ device/huawei/msm7x27a-common/patches/apply.sh
 
 device/huawei/u8833/patches/apply.sh
 
-echo call ". build/envsetup.sh" and "brunch u8833" now
+echo call \"cd $CM_DIR && source build/envsetup.sh && brunch u8833\" now
 
 exit 0
