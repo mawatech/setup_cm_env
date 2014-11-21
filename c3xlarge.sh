@@ -1,15 +1,18 @@
 # define the different directories
-# the default config creates all directories in HOME
+
 export BASE_DIR=/mnt
 export CM_DIR=$BASE_DIR/android/system
+export SECOND_PARTITION=/dev/xvdc
+export SECOND_PARTITION_MOUNTPOINT=/mnt2
 export OUT_DIR=$SECOND_PARTITION_MOUNTPOINT/out
 export CCACHE_DIR=$HOME/.ccache
+
+# we create the inital tree by unpacking an archive
+# this is faster then the inital checkout
+export CM_ARCHIVE_ENABLED=1 # load the inital repo from an archive
 export CM_ARCHIVE_PARTITION=/dev/xvdf1
 export CM_ARCHIVE_DIR=$HOME/archive
 export CM_ARCHIVE_NAME=cmrepo.7z
-
-export SECOND_PARTITION=/dev/xvdc
-export SECOND_PARTITION_MOUNTPOINT=/mnt2
 
 # configure ramdisk usage
 # needs a lot of RAM (!!!)
@@ -19,7 +22,6 @@ export OUT_RAMDISK_ENABLED=0 # should we use a ramdisk for out?
 export OUT_RAMDISK_SIZE=25G # at least 22 GB
 export CCACHE_RAMDISK_ENABLED=0 # should we use a ramdisk for the ccache?
 export CCACHE_RAMDISK_SIZE=5G # the ccache constantly grows, 50 GB should be enough
-export CM_ARCHIVE_ENABLED=1 # load the inital repo from an archive
 
 export PACKAGES_TO_INSTALL="oracle-java7-installer oracle-java7-set-default \
 					 git git-core gnupg flex bison gperf libsdl1.2-dev \
