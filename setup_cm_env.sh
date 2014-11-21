@@ -24,7 +24,7 @@ fi
 
 if [ $CM_ARCHIVE_ENABLED -ne 0 ]; then
 	sudo mkdir -p $CM_ARCHIVE_DIR
-	sudo mount /dev/sdf1 $CM_ARCHIVE_DIR
+	sudo mount $CM_ARCHIVE_PARTITION $CM_ARCHIVE_DIR
 fi
 
 # ensure we can write into the directories
@@ -33,9 +33,12 @@ sudo chown -R ubuntu: $CCACHE_DIR
 sudo chown -R ubuntu: $OUT_DIR
 sudo chown -R ubuntu: $CM_ARCHIVE_DIR
 
+sudo cp sources.list /etc/apt/sources.list.d/
+
 # install needed packages
 sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get update
+echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 sudo apt-get -y install $PACKAGES_TO_INSTALL
 
 # download the repo command and make it executable
