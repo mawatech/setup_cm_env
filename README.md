@@ -7,8 +7,8 @@ the configuration is done in the env.sh
 
 ```
 source env.sh
-./setup_cm_env.sh
+./setup.sh
 source ~/.bashrc
-./checkout_cm.sh
-./checkout_u8833.sh
+./cyanogenmod.sh
+./u8833.sh
 ```
